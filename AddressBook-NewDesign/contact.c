@@ -31,8 +31,10 @@ void listContacts(AddressBook *addressBook)
 
     // Sort contacts based on the chosen criteria
     printf("\nSaved Contacts: \n");
+    printf("SR. NO\t%-20s\t%-15s\t%-30s\n", "Name", "Phone Number", "Email");
+    printf("____________________________________________________________________________________________________\n");
     for(int i=0;i<addressBook->contactCount;i++){
-        printf("Name: %s\nPhone: %s\nEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+        printf("%d\t%-20s\t%-15s\t%-30s\n",i+1,addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
     }
 
     printf("____________________________________________________________________________________________________\n\n");
@@ -77,6 +79,36 @@ void createContact(AddressBook *addressBook)
 void searchContact(AddressBook *addressBook) 
 {
     /* Define the logic for search */
+    __fpurge(stdin);
+    int choice;
+    printf("1. Search by Name\n2. Search by Phone Number\n3. Search by Email\n");
+    scanf("%d", &choice);
+    __fpurge(stdin);
+    char input[50];
+
+
+    switch (choice) {
+        case 1:
+            printf("Enter Name to search: ");
+            scanf("%[^\n]", input);
+            SearchContactsByName(addressBook, input, 0);
+            break;
+        case 2:
+            printf("Enter Phone Number to search: ");
+            scanf("%[^\n]", input);
+            SearchContactsByPhone(addressBook, input, 0);
+            break;
+        case 3:
+            printf("Enter Email to search: ");
+            scanf("%[^\n]", input);
+            SearchContactsByEmail(addressBook, input, 0);
+            break;
+        default:
+            printf("Invalid choice.\n");
+            break;
+    }
+    printf("____________________________________________________________________________________________________\n\n");
+
 }
 
 void editContact(AddressBook *addressBook)

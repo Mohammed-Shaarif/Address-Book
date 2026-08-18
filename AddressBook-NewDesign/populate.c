@@ -15,7 +15,7 @@ void populateName(AddressBook *addressBook){
 
 
         for(int i=0;input[i]!=0;i++){
-            if(!isalnum(input[i]) || input[i]==' '){
+            if(!(isalnum(input[i]) || input[i]==' ')){
                 flag=2;
                 break;
             }
@@ -111,7 +111,7 @@ void populateEmail(AddressBook *addressBook){
             flag=4;
         }
         for(int i=0;i<n;i++){
-            if(!isalnum(input[i])|| input[i]!='@' || input[i]!='.'){
+            if(!(isalnum(input[i])|| input[i]=='@' || input[i]=='.')){
                 flag=2;
                 break;
             }
@@ -137,10 +137,12 @@ void populateEmail(AddressBook *addressBook){
 
         if(flag==1){
             strcpy(addressBook->contacts[addressBook->contactCount].email,input);
+            //printf("Email: %s\n",addressBook->contacts[addressBook->contactCount].email);
             flag=0;
         }
         else if(flag==2){
             printf("Please Enter Valid Characters\n");
+            flag=1;
         }
         else if(flag==3){
             printf("No domain name or multiple '@' present in email\n");
@@ -165,6 +167,10 @@ void populateEmail(AddressBook *addressBook){
 
 
 
+
+
+
+
 void sortContactsByName(AddressBook *addressBook){
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
@@ -177,6 +183,9 @@ void sortContactsByName(AddressBook *addressBook){
     }
     printf("Test-> sortContactsByName Success\n");
 }
+
+
+
 void sortContactsByPhone(AddressBook *addressBook){
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
@@ -189,6 +198,9 @@ void sortContactsByPhone(AddressBook *addressBook){
     }
     printf("Test-> sortContactsByPhone Success\n");
 }
+
+
+
 void sortContactsByEmail(AddressBook *addressBook){
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
@@ -201,4 +213,81 @@ void sortContactsByEmail(AddressBook *addressBook){
     }
     printf("Test-> sortContactsByEmail Success\n");
 }   
+
+
+
+int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
+    if(flag==0){
+        char f=0;
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(strstr(addressBook->contacts[i].name,name)){
+                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                f=1;
+            }
+        }
+        if(f==0){
+            printf("Name/match not found\n");
+        }
+    }
+    else if(flag==1){
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].name,name)){
+                return i;
+            }
+        }
+        printf("Name/match not found\n");
+    }
+}
+
+
+
+int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
+    if(flag==0){
+        char f=0;
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].phone,phone)){
+                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                f=1;
+                break;
+            }
+        }
+        if(f==0){
+            printf("Phone number not found\n");
+        }
+    }
+    else if(flag==1){
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].phone,phone)){
+                return i;
+            }
+        }
+        printf("Phone number not found\n");
+    }
+    return 0;
+}
+
+int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
+    if(flag==0){
+        char f=0;
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].email,email)){
+                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                f=1;
+                break;
+            }
+        }
+        if(f==0){
+            printf("Email not found\n");
+        }
+    }
+    else if(flag==1){
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].email,email)){
+                return i;
+            }
+        }
+        printf("Email not found\n");
+    }
+    return 0;
+}
 
