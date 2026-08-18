@@ -5,9 +5,15 @@
 #include "file.h"
 #include "populate.h"
 
-void listContacts(AddressBook *addressBook, int sortCriteria) 
+void listContacts(AddressBook *addressBook) 
 {
     // Sort contacts based on the chosen criteria
+    printf("\nSaved Contacts: \n");
+    for(int i=0;i<addressBook->contactCount;i++){
+        printf("Name: %s\nPhone: %s\nEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+    }
+
+    printf("____________________________________________________________________________________________________\n\n");
     
 }
 
@@ -32,9 +38,9 @@ void createContact(AddressBook *addressBook)
     if (addressBook->contactCount < 100) {
         Contact *newContact = &addressBook->contacts[addressBook->contactCount];
 
-        populateName(newContact);
-        populateMobile(newContact);
-        populateEmail(newContact);
+        populateName(addressBook);
+        populateMobile(addressBook);
+        populateEmail(addressBook);
 
         addressBook->contactCount++;
     }

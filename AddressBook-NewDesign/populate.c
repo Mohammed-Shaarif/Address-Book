@@ -5,7 +5,7 @@
 
 #include "contact.h"
 
-void populateName(Contact *newContact){
+void populateName(AddressBook *addressBook){
     char input[50];
     char flag=1;
     while(flag==1){
@@ -22,7 +22,7 @@ void populateName(Contact *newContact){
                 
         }
         if(flag==1){
-            strcpy(newContact->name,input);
+            strcpy(addressBook->contacts[addressBook->contactCount].name,input);
             flag=0;
             }
         else if(flag==2){
@@ -35,7 +35,7 @@ void populateName(Contact *newContact){
 
 
 
-void populateMobile(Contact *newContact){
+void populateMobile(AddressBook *addressBook){
     char input[20];
     char flag=1;
     while(flag==1){
@@ -59,8 +59,16 @@ void populateMobile(Contact *newContact){
             flag=2;
         }
 
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].phone,input)){
+                flag=5;
+                break;
+                       
+            }
+        }
+
         if(flag==1){
-            strcpy(newContact->phone,input);
+            strcpy(addressBook->contacts[addressBook->contactCount].phone,input);
             flag=0;
         }
         else if(flag==2){
@@ -75,13 +83,17 @@ void populateMobile(Contact *newContact){
             printf("Phone number should start with digits 6,7,8 or 9\n");
             flag=1;
         }
+        else if(flag==5){
+            printf("Phone number already exists\n");
+            flag=1;
+        }
     }
     printf("Test-> populateMobile Success\n");
 }
 
 
 
-void populateEmail(Contact *newContact){
+void populateEmail(AddressBook *addressBook){
     char input[50];
     char flag=1;
     char template1[]=".com";
@@ -113,14 +125,18 @@ void populateEmail(Contact *newContact){
             }
         }
         if(index>n-5){
-            flag=6;
+            flag=3;
         }
 
-
-                
+        for(int i=0;i<addressBook->contactCount;i++){
+            if(!strcmp(addressBook->contacts[i].email,input)){
+                flag=6;
+                break;
+            }
+        }
 
         if(flag==1){
-            strcpy(newContact->email,input);
+            strcpy(addressBook->contacts[addressBook->contactCount].email,input);
             flag=0;
         }
         else if(flag==2){
@@ -139,9 +155,9 @@ void populateEmail(Contact *newContact){
             flag=1;
         }
         else if(flag==6){
-            printf("'@' positioning\n");
+            printf("Email already exists\n");
             flag=1;
         }
     }
-    printf("Test-> populateMobile Success\n");
+    printf("Test-> populateEmail Success\n");
 }

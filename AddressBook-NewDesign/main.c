@@ -3,7 +3,7 @@
 #include "contact.h"
 
 int main() {
-    int choice,sortChoice;
+    int choice;
     AddressBook addressBook;
     initialize(&addressBook); // Initialize the address book
 
@@ -35,7 +35,7 @@ int main() {
                 deleteContact(&addressBook);
                 break;
             case 5:          
-                listContacts(&addressBook, sortChoice);
+                listContacts(&addressBook);
                 break;
             case 6:
                 printf("Saving...\n");

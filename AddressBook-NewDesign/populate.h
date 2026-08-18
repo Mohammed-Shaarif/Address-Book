@@ -1,3 +1,4 @@
-void populateName(Contact *newContact);
-void populateMobile(Contact *newContact);
-void populateEmail(Contact *newContact);
+void populateName(AddressBook *addressBook);
+void populateMobile(AddressBook *addressBook);
+void populateEmail(AddressBook *addressBook);
+
