@@ -26,7 +26,23 @@ void saveAndExit(AddressBook *addressBook) {
 
 void createContact(AddressBook *addressBook)
 {
+
 	/* Define the logic to create a Contacts */
+
+    if (addressBook->contactCount < 100) {
+        Contact *newContact = &addressBook->contacts[addressBook->contactCount];
+
+        populateName(newContact);
+        populateMobile(newContact);
+        populateEmail(newContact);
+
+        addressBook->contactCount++;
+    }
+    else{
+        printf("Address book is full!\n");
+    }
+    printf("Contact Added Successfully\n");
+    printf("____________________________________________________________________________________________________\n\n");
     
 }
 
