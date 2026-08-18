@@ -2,8 +2,8 @@
 #include<ctype.h>
 #include<string.h>
 #include <stdio_ext.h>
-
 #include "contact.h"
+#include "populate.h"
 
 void populateName(AddressBook *addressBook){
     char input[50];
@@ -161,3 +161,44 @@ void populateEmail(AddressBook *addressBook){
     }
     printf("Test-> populateEmail Success\n");
 }
+
+
+
+
+void sortContactsByName(AddressBook *addressBook){
+    for(int i=0;i<addressBook->contactCount-1;i++){
+        for(int j=i+1;j<addressBook->contactCount;j++){
+            if(strcmp(addressBook->contacts[i].name,addressBook->contacts[j].name)>0){
+                Contact temp=addressBook->contacts[i];
+                addressBook->contacts[i]=addressBook->contacts[j];
+                addressBook->contacts[j]=temp;
+            }
+        }
+    }
+    printf("Test-> sortContactsByName Success\n");
+}
+void sortContactsByPhone(AddressBook *addressBook){
+    for(int i=0;i<addressBook->contactCount-1;i++){
+        for(int j=i+1;j<addressBook->contactCount;j++){
+            if(strcmp(addressBook->contacts[i].phone,addressBook->contacts[j].phone)>0){
+                Contact temp=addressBook->contacts[i];
+                addressBook->contacts[i]=addressBook->contacts[j];
+                addressBook->contacts[j]=temp;
+            }
+        }
+    }
+    printf("Test-> sortContactsByPhone Success\n");
+}
+void sortContactsByEmail(AddressBook *addressBook){
+    for(int i=0;i<addressBook->contactCount-1;i++){
+        for(int j=i+1;j<addressBook->contactCount;j++){
+            if(strcmp(addressBook->contacts[i].email,addressBook->contacts[j].email)>0){
+                Contact temp=addressBook->contacts[i];
+                addressBook->contacts[i]=addressBook->contacts[j];
+                addressBook->contacts[j]=temp;
+            }
+        }
+    }
+    printf("Test-> sortContactsByEmail Success\n");
+}   
+

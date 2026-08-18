@@ -1,12 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio_ext.h>
 #include "contact.h"
 #include "file.h"
 #include "populate.h"
 
 void listContacts(AddressBook *addressBook) 
 {
+    __fpurge(stdin);
+    int choice;
+    printf("1. Sort by Name\n2. Sort by Phone Number\n3. Sort by Email\n");
+    scanf("%d", &choice);
+    __fpurge(stdin);
+
+    switch (choice) {
+        case 1:
+            sortContactsByName(addressBook);
+            break;
+        case 2:
+            sortContactsByPhone(addressBook);
+            break;
+        case 3:
+            sortContactsByEmail(addressBook);
+            break;
+        default:
+            printf("Invalid choice. Listing contacts without sorting.\n");
+            break;
+    }
+
     // Sort contacts based on the chosen criteria
     printf("\nSaved Contacts: \n");
     for(int i=0;i<addressBook->contactCount;i++){
