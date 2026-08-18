@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdio_ext.h>
 #include "contact.h"
 
 int main() {
-    int choice;
+    int choice,sortChoice;
     AddressBook addressBook;
     initialize(&addressBook); // Initialize the address book
 
@@ -17,6 +18,8 @@ int main() {
         printf("7. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        //getchar();
+        __fpurge(stdin);
         
         switch (choice) {
             case 1:
