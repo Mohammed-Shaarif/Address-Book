@@ -26,7 +26,7 @@ int main() {
                 createContact(&addressBook);
                 break;
             case 2:
-                searchContact(&addressBook);
+                searchContact(&addressBook, 0);
                 break;
             case 3:
                 editContact(&addressBook);

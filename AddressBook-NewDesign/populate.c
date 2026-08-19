@@ -291,3 +291,12 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
     return 0;
 }
 
+
+void deleteContactByIndex(AddressBook *addressBook, int index){
+    for(int i=index;i<addressBook->contactCount-1;i++){
+        addressBook->contacts[i]=addressBook->contacts[i+1];
+    }
+    addressBook->contactCount--;
+    printf("Test-> deleteContactByIndex Success\n");
+}
+
