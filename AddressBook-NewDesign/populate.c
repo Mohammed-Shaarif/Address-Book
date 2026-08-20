@@ -5,9 +5,12 @@
 #include "contact.h"
 #include "populate.h"
 
-void populateName(AddressBook *addressBook){
+void populateName(AddressBook *addressBook,int f){
     char input[50];
     char flag=1;
+    if(f==-1){
+        f=addressBook->contactCount;
+    }
     while(flag==1){
         __fpurge(stdin);
         printf("Enter Name: ");
@@ -22,7 +25,7 @@ void populateName(AddressBook *addressBook){
                 
         }
         if(flag==1){
-            strcpy(addressBook->contacts[addressBook->contactCount].name,input);
+            strcpy(addressBook->contacts[f].name,input);
             flag=0;
             }
         else if(flag==2){
@@ -35,9 +38,12 @@ void populateName(AddressBook *addressBook){
 
 
 
-void populateMobile(AddressBook *addressBook){
+void populateMobile(AddressBook *addressBook,int f){
     char input[20];
     char flag=1;
+    if(f==-1){
+        f=addressBook->contactCount;
+    }
     while(flag==1){
         //getchar();
         __fpurge(stdin);
@@ -52,7 +58,7 @@ void populateMobile(AddressBook *addressBook){
                 break;
             }
         }
-        if(input[0]<='6')
+        if(input[0]<'6')
             flag=4;
 
         if(strlen(input)!=10){
@@ -68,7 +74,7 @@ void populateMobile(AddressBook *addressBook){
         }
 
         if(flag==1){
-            strcpy(addressBook->contacts[addressBook->contactCount].phone,input);
+            strcpy(addressBook->contacts[f].phone,input);
             flag=0;
         }
         else if(flag==2){
@@ -93,10 +99,13 @@ void populateMobile(AddressBook *addressBook){
 
 
 
-void populateEmail(AddressBook *addressBook){
+void populateEmail(AddressBook *addressBook,int f){
     char input[50];
     char flag=1;
     char template1[]=".com";
+    if(f==-1){
+        f=addressBook->contactCount;
+    }
     while(flag==1){
         //getchar();
         __fpurge(stdin);
@@ -136,7 +145,7 @@ void populateEmail(AddressBook *addressBook){
         }
 
         if(flag==1){
-            strcpy(addressBook->contacts[addressBook->contactCount].email,input);
+            strcpy(addressBook->contacts[f].email,input);
             //printf("Email: %s\n",addressBook->contacts[addressBook->contactCount].email);
             flag=0;
         }
