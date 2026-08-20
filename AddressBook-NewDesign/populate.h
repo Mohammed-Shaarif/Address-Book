@@ -1,6 +1,6 @@
-void populateName(AddressBook *addressBook);
-void populateMobile(AddressBook *addressBook);
-void populateEmail(AddressBook *addressBook);
+void populateName(AddressBook *addressBook,int f);
+void populateMobile(AddressBook *addressBook,int f);
+void populateEmail(AddressBook *addressBook,int f);
 
 void sortContactsByName(AddressBook *addressBook);
 void sortContactsByPhone(AddressBook *addressBook);
