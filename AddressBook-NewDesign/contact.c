@@ -35,7 +35,7 @@ void listContacts(AddressBook *addressBook){
     for(int i=0;i<addressBook->contactCount;i++){
         printf("%d\t%-20s\t%-15s\t%-30s\n",i+1,addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
     }
-
+    printf("%d contacts found\n",addressBook->contactCount);
     printf("____________________________________________________________________________________________________\n\n");
     
 }
