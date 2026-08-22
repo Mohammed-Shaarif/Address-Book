@@ -12,7 +12,7 @@ void saveContactsToFile(AddressBook *addressBook) {
     }
 
     for (int i = 0; i < addressBook->contactCount; i++) {
-        fprintf(fp, "%s,%s,%s\n", addressBook->contacts[i].name, addressBook->contacts[i].phone, addressBook->contacts[i].email);
+        fprintf(fp,"%s,%s,%s",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
     }
 
     fclose(fp);
