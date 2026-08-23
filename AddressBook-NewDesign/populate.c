@@ -223,14 +223,22 @@ void sortContactsByEmail(AddressBook *addressBook){
     printf("Test-> sortContactsByEmail Success\n");
 }   
 
-
+char* convertToLower(const char *str,char *lowerStr){
+    for(int i=0;str[i]!=0;i++){
+        lowerStr[i]=tolower(str[i]);
+    }
+    lowerStr[strlen(str)]=0;
+    return lowerStr;
+}
 
 int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
+    char temp1[50];
+    char temp2[50];
     if(flag==0){
         char f=0;
         for(int i=0;i<addressBook->contactCount;i++){
-            if(strstr(addressBook->contacts[i].name,name)){
-                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+            if(strstr(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
+                printf("Name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 f=1;
             }
         }
@@ -240,7 +248,7 @@ int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
     }
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(addressBook->contacts[i].name,name)){
+            if(!strcmp(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
                 return i;
             }
         }
@@ -251,10 +259,12 @@ int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
 
 
 int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
+    char temp1[50];
+    char temp2[50];
     if(flag==0){
         char f=0;
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(addressBook->contacts[i].phone,phone)){
+            if(!strcmp(convertToLower(addressBook->contacts[i].phone,temp1),convertToLower(phone,temp2))){
                 printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 f=1;
                 break;
@@ -266,7 +276,7 @@ int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
     }
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(addressBook->contacts[i].phone,phone)){
+            if(!strcmp(convertToLower(addressBook->contacts[i].phone,temp1),convertToLower(phone,temp2))){
                 return i;
             }
         }
@@ -276,10 +286,12 @@ int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
 }
 
 int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
+    char temp1[50];
+    char temp2[50];
     if(flag==0){
         char f=0;
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(addressBook->contacts[i].email,email)){
+            if(!strcmp(convertToLower(addressBook->contacts[i].email,temp1),convertToLower(email,temp2))){
                 printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 f=1;
                 break;
@@ -291,7 +303,7 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
     }
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(addressBook->contacts[i].email,email)){
+            if(!strcmp(convertToLower(addressBook->contacts[i].email,temp1),convertToLower(email,temp2))){
                 return i;
             }
         }
