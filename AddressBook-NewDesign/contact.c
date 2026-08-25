@@ -150,7 +150,6 @@ void deleteContact(AddressBook *addressBook){
         return;
     }
     deleteContactByIndex(addressBook, index);
-    printf("Contact deleted successfully.\n");
 
     printf("____________________________________________________________________________________________________\n\n");
    

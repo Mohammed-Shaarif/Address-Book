@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-void saveContactsToFile(AddressBook *addressBook) {
+void saveContactsToFile(AddressBook *addressBook){
     FILE *fp;
     fp = fopen("contacts.txt", "w");
     if (fp == NULL) {
@@ -12,7 +12,7 @@ void saveContactsToFile(AddressBook *addressBook) {
     }
 
     for (int i = 0; i < addressBook->contactCount; i++) {
-        fprintf(fp,"%s,%s,%s",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+        fprintf(fp,"%s,%s,%s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
     }
 
     fclose(fp);
@@ -30,17 +30,32 @@ void loadContactsFromFile(AddressBook *addressBook) {
         printf("Error opening file");
         return;
     }
+    printf("Loading contacts from file...\n");
+    printf("____________________________________________________________________________________________________\n\n");
+    printf("Saved Contacts: \n");
+    while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+        buffer[strcspn(buffer, "\r\n")] = 0;
 
-    while(fgets(buffer,sizeof(buffer),fp) != NULL){
-        printf("%s\n",buffer);
+        printf("%s\n", buffer);
 
-        strcpy(addressBook->contacts[addressBook->contactCount].name,strtok(buffer,","));
-        strcpy(addressBook->contacts[addressBook->contactCount].phone,strtok(NULL,","));
-        strcpy(addressBook->contacts[addressBook->contactCount].email,strtok(NULL,","));
+        char *name  = strtok(buffer, ",");
+        char *phone = strtok(NULL, ",");
+        char *email = strtok(NULL, ",");
 
-        addressBook->contactCount++;
-
+        if (name && phone && email) {
+            strcpy(addressBook->contacts[addressBook->contactCount].name, name);
+            strcpy(addressBook->contacts[addressBook->contactCount].phone, phone);
+            strcpy(addressBook->contacts[addressBook->contactCount].email, email);
+            addressBook->contactCount++;
+        }
     }
+
+    fclose(fp);
+    printf("____________________________________________________________________________________________________\n\n");
+    printf("Contacts loaded from file successfully.\n");
 }
+
+
+
 
 

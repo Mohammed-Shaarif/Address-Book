@@ -248,7 +248,8 @@ int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
     }
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
+            if(strstr(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
+                printf("contact found name: %s\n",addressBook->contacts[i].name);
                 return i;
             }
         }
@@ -314,10 +315,18 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
 
 
 void deleteContactByIndex(AddressBook *addressBook, int index){
-    for(int i=index;i<addressBook->contactCount-1;i++){
-        addressBook->contacts[i]=addressBook->contacts[i+1];
+    int choice;
+    printf("Are you sure you want to delete the contact: %s? (1 for Yes, 0 for No): ", addressBook->contacts[index].name);
+    scanf("%d", &choice);
+    if (choice == 1){
+        for(int i=index;i<addressBook->contactCount-1;i++){
+            addressBook->contacts[i]=addressBook->contacts[i+1];
+        }
+        addressBook->contactCount--;
+        printf("Contact deleted successfully.\n");
+    }else{
+        printf("Deletion cancelled.\n");
     }
-    addressBook->contactCount--;
     printf("Test-> deleteContactByIndex Success\n");
 }
 
