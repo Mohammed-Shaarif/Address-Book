@@ -5,7 +5,7 @@
 
 void saveContactsToFile(AddressBook *addressBook){
     FILE *fp;
-    fp = fopen("contacts.txt", "w");
+    fp = fopen("contacts.csv", "w");
     if (fp == NULL) {
         printf("Error opening file for writing.\n");
         return;
@@ -24,7 +24,7 @@ void loadContactsFromFile(AddressBook *addressBook) {
     FILE *fp;
     char buffer[120];
 
-    fp=fopen("contacts.txt","r");
+    fp=fopen("contacts.csv","r");
 
     if(fp == NULL){
         printf("Error opening file");
