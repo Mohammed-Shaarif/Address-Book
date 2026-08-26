@@ -10,7 +10,7 @@ void saveContactsToFile(AddressBook *addressBook){
         printf("Error opening file for writing.\n");
         return;
     }
-
+    fprintf(fp, "%d\n", addressBook->contactCount);
     for (int i = 0; i < addressBook->contactCount; i++) {
         fprintf(fp,"%s,%s,%s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
     }
@@ -30,7 +30,8 @@ void loadContactsFromFile(AddressBook *addressBook) {
         printf("Error opening file");
         return;
     }
-    printf("Loading contacts from file...\n");
+    fscanf(fp,"%d\n",&addressBook->contactCount);
+    printf("Loading %d contacts from file...\n", addressBook->contactCount);
     printf("____________________________________________________________________________________________________\n\n");
     printf("Saved Contacts: \n");
     while (fgets(buffer, sizeof(buffer), fp) != NULL) {
