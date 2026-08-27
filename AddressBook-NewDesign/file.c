@@ -30,11 +30,13 @@ void loadContactsFromFile(AddressBook *addressBook) {
         printf("Error opening file");
         return;
     }
-    fscanf(fp,"%d\n",&addressBook->contactCount);
+    fscanf(fp, "%d\n", &addressBook->contactCount);
+    fgetc(fp);
     printf("Loading %d contacts from file...\n", addressBook->contactCount);
-    printf("____________________________________________________________________________________________________\n\n");
-    printf("Saved Contacts: \n");
-    while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+    printf("____________________________________________________________________________________________________\n");
+    //printf("Saved Contacts: \n");
+    for (int i = 0; i < addressBook->contactCount; i++) {
+        fgets(buffer, sizeof(buffer), fp);
         buffer[strcspn(buffer, "\r\n")] = 0;
 
         printf("%s\n", buffer);
@@ -44,10 +46,9 @@ void loadContactsFromFile(AddressBook *addressBook) {
         char *email = strtok(NULL, ",");
 
         if (name && phone && email) {
-            strcpy(addressBook->contacts[addressBook->contactCount].name, name);
-            strcpy(addressBook->contacts[addressBook->contactCount].phone, phone);
-            strcpy(addressBook->contacts[addressBook->contactCount].email, email);
-            addressBook->contactCount++;
+            strcpy(addressBook->contacts[i].name, name);
+            strcpy(addressBook->contacts[i].phone, phone);
+            strcpy(addressBook->contacts[i].email, email);
         }
     }
 
