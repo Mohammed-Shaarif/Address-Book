@@ -17,7 +17,7 @@ void saveContactsToFile(AddressBook *addressBook){
 
     fclose(fp);
     printf("Contacts saved to file successfully.\n");
-    printf("")
+    printf("________________________________________________________________________________________________\n\n");
   
 }
 
@@ -33,13 +33,13 @@ void loadContactsFromFile(AddressBook *addressBook) {
     }
     fscanf(fp, "%d\n", &addressBook->contactCount);
     printf("\nLoading %d contacts from file...\n", addressBook->contactCount);
-    printf("____________________________________________________________________________________________________\n\n");
+    //printf("____________________________________________________________________________________________________\n\n");
     //printf("Saved Contacts: \n");
     for (int i = 0; i < addressBook->contactCount; i++) {
         fgets(buffer, sizeof(buffer), fp);
         buffer[strcspn(buffer, "\r\n")] = 0;
 
-        printf("%s\n", buffer);
+        //printf("%s\n", buffer);
 
         char *name  = strtok(buffer, ",");
         char *phone = strtok(NULL, ",");
@@ -53,7 +53,7 @@ void loadContactsFromFile(AddressBook *addressBook) {
     }
 
     fclose(fp);
-    printf("____________________________________________________________________________________________________\n\n");
+    //printf("____________________________________________________________________________________________________\n\n");
     printf("Contacts loaded from file successfully.\n");
 }
 
