@@ -33,7 +33,7 @@ void populateName(AddressBook *addressBook,int f){
             flag=1;
         }
     }
-    printf("Test-> populateName Success\n");
+    //printf("Test-> populateName Success\n");
 }
 
 
@@ -94,7 +94,7 @@ void populateMobile(AddressBook *addressBook,int f){
             flag=1;
         }
     }
-    printf("Test-> populateMobile Success\n");
+    //printf("Test-> populateMobile Success\n");
 }
 
 
@@ -170,7 +170,7 @@ void populateEmail(AddressBook *addressBook,int f){
             flag=1;
         }
     }
-    printf("Test-> populateEmail Success\n");
+    //printf("Test-> populateEmail Success\n");
 }
 
 
@@ -190,7 +190,7 @@ void sortContactsByName(AddressBook *addressBook){
             }
         }
     }
-    printf("Test-> sortContactsByName Success\n");
+    //printf("Test-> sortContactsByName Success\n");
 }
 
 
@@ -205,7 +205,7 @@ void sortContactsByPhone(AddressBook *addressBook){
             }
         }
     }
-    printf("Test-> sortContactsByPhone Success\n");
+    //printf("Test-> sortContactsByPhone Success\n");
 }
 
 
@@ -220,7 +220,7 @@ void sortContactsByEmail(AddressBook *addressBook){
             }
         }
     }
-    printf("Test-> sortContactsByEmail Success\n");
+    //printf("Test-> sortContactsByEmail Success\n");
 }   
 
 char* convertToLower(const char *str,char *lowerStr){
@@ -248,11 +248,13 @@ int SearchContactsByName(AddressBook *addressBook, char *name, int flag){
     }
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
-            if(!strcmp(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
+            if(strstr(convertToLower(addressBook->contacts[i].name,temp1),convertToLower(name,temp2))){
+                printf("contact found name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 return i;
             }
         }
         printf("Name/match not found\n");
+        return -1;
     }
 }
 
@@ -265,7 +267,7 @@ int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
         char f=0;
         for(int i=0;i<addressBook->contactCount;i++){
             if(!strcmp(convertToLower(addressBook->contacts[i].phone,temp1),convertToLower(phone,temp2))){
-                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                printf("Name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 f=1;
                 break;
             }
@@ -277,12 +279,13 @@ int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag){
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
             if(!strcmp(convertToLower(addressBook->contacts[i].phone,temp1),convertToLower(phone,temp2))){
+                printf("contact found name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 return i;
             }
         }
         printf("Phone number not found\n");
+        return -1;
     }
-    return 0;
 }
 
 int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
@@ -292,7 +295,7 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
         char f=0;
         for(int i=0;i<addressBook->contactCount;i++){
             if(!strcmp(convertToLower(addressBook->contacts[i].email,temp1),convertToLower(email,temp2))){
-                printf("Name: %s\tPhone: %s\tEmail: %s\n--------------------\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                printf("Name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 f=1;
                 break;
             }
@@ -304,20 +307,29 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag){
     else if(flag==1){
         for(int i=0;i<addressBook->contactCount;i++){
             if(!strcmp(convertToLower(addressBook->contacts[i].email,temp1),convertToLower(email,temp2))){
+                printf("contact found name: %s\tPhone: %s\tEmail: %s\n",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
                 return i;
             }
         }
         printf("Email not found\n");
+        return -1;
     }
-    return 0;
 }
 
 
 void deleteContactByIndex(AddressBook *addressBook, int index){
-    for(int i=index;i<addressBook->contactCount-1;i++){
-        addressBook->contacts[i]=addressBook->contacts[i+1];
+    int choice;
+    printf("Are you sure you want to delete the contact: %s? (1 for Yes, 0 for No): ", addressBook->contacts[index].name);
+    scanf("%d", &choice);
+    if (choice == 1){
+        for(int i=index;i<addressBook->contactCount-1;i++){
+            addressBook->contacts[i]=addressBook->contacts[i+1];
+        }
+        addressBook->contactCount--;
+        printf("\nContact deleted successfully.\n");
+    }else{
+        printf("\nDeletion cancelled.\n");
     }
-    addressBook->contactCount--;
-    printf("Test-> deleteContactByIndex Success\n");
+    //printf("Test-> deleteContactByIndex Success\n");
 }
 
