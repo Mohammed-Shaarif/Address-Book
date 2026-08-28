@@ -5,13 +5,39 @@
 #include "contact.h"
 #include "populate.h"
 
+/*Section 1 - Functions to populate the contact details. 
+These functions are used to get the user input for name, mobile number and email address. 
+The functions also validate the input and ensure that the input is in the correct format. 
+The functions also check for duplicate entries and ensure that the input is unique. 
+The functions also check for valid characters in the input and ensure that the input is in the correct format. 
+The functions also check for valid length of the input and ensure that the input is in the correct format. 
+The functions also check for valid starting character of the input and ensure that the input is in the correct format. 
+The functions also check for valid domain extension of the input and ensure that the input is in the correct format. 
+The functions also check for valid name before '@' in the email address and ensure that the input is in the correct format. 
+The functions also check for valid domain name in the email address and ensure that the input is in the correct format. 
+The functions also check for valid multiple '@' in the email address and ensure that the input is in the correct format. 
+The functions also check for valid domain extension '.com' in the email address and ensure that the input is in the correct format. 
+The functions also check for valid duplicate email address and ensure that the input is unique.
+*/
+
+// here f is the index of the contact to be populated. If f=-1, it means a new contact is being added, otherwise an existing contact is being edited.
 void populateName(AddressBook *addressBook,int f){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    int f: Index of the contact to be populated. -1 indicates a new contact is being added.
+
+    Output:
+    The function populates the name for the specified contact in the AddressBook structure.
+    It ensures that the input is valid and unique, and it handles invalid input gracefully.
+    */
+
     char input[50];
     char flag=1;
     if(f==-1){
         f=addressBook->contactCount;
     }
-    while(flag==1){
+    while(flag==1){ //loop until valid name is entered
         __fpurge(stdin);
         printf("Enter Name: ");
         scanf("%[^\n]",input);
@@ -36,14 +62,23 @@ void populateName(AddressBook *addressBook,int f){
     //printf("Test-> populateName Success\n");
 }
 
-
-
 void populateMobile(AddressBook *addressBook,int f){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    int f: Index of the contact to be populated. -1 indicates a new contact is being added.
+
+    Output:
+    The function populates the mobile number for the specified contact in the AddressBook structure.
+    It ensures that the input is valid and unique, and it handles invalid input gracefully.
+    */
+
     char input[20];
     char flag=1;
     if(f==-1){
         f=addressBook->contactCount;
     }
+    //loop until valid mobile number is entered
     while(flag==1){
         //getchar();
         __fpurge(stdin);
@@ -97,15 +132,24 @@ void populateMobile(AddressBook *addressBook,int f){
     //printf("Test-> populateMobile Success\n");
 }
 
-
-
 void populateEmail(AddressBook *addressBook,int f){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    int f: Index of the contact to be populated. -1 indicates a new contact is being added.
+
+    Output:
+    The function populates the email for the specified contact in the AddressBook structure.
+    It ensures that the input is valid and unique, and it handles invalid input gracefully.
+    */
+
     char input[50];
     char flag=1;
     char template1[]=".com";
     if(f==-1){
         f=addressBook->contactCount;
     }
+    //loop until valid email is entered
     while(flag==1){
         //getchar();
         __fpurge(stdin);
@@ -174,13 +218,22 @@ void populateEmail(AddressBook *addressBook,int f){
 }
 
 
-
-
-
+/*
+Section 2 - Functions to sort the contact details.
+These functions are used to sort the contact details based on name, mobile number and email address.
+The functions also ensure that the contact details are sorted in ascending order.
+*/
 
 
 
 void sortContactsByName(AddressBook *addressBook){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+
+    Output:
+    The function sorts the contact details in ascending order based on the Name.
+    */
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
             if(strcmp(addressBook->contacts[i].name,addressBook->contacts[j].name)>0){
@@ -193,9 +246,15 @@ void sortContactsByName(AddressBook *addressBook){
     //printf("Test-> sortContactsByName Success\n");
 }
 
-
-
 void sortContactsByPhone(AddressBook *addressBook){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+
+    Output:
+    The function sorts the contact details in ascending order based on the Phone Number.
+    */
+
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
             if(strcmp(addressBook->contacts[i].phone,addressBook->contacts[j].phone)>0){
@@ -208,9 +267,14 @@ void sortContactsByPhone(AddressBook *addressBook){
     //printf("Test-> sortContactsByPhone Success\n");
 }
 
-
-
 void sortContactsByEmail(AddressBook *addressBook){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+
+    Output:
+    The function sorts the contact details in ascending order based on the Email.
+    */
     for(int i=0;i<addressBook->contactCount-1;i++){
         for(int j=i+1;j<addressBook->contactCount;j++){
             if(strcmp(addressBook->contacts[i].email,addressBook->contacts[j].email)>0){
@@ -223,6 +287,15 @@ void sortContactsByEmail(AddressBook *addressBook){
     //printf("Test-> sortContactsByEmail Success\n");
 }   
 
+
+/*
+Section 3 - Functions to search the contact details.
+These functions are used to search the contact details based on name, mobile number and email address.
+The functions also ensure that the contact details are searched in ascending order.
+The functions also ensure that the contact details are searched in a case-insensitive manner.
+There Search functions are used as helpers for editContact and deleteContact functions. They return the number of contacts found and populate the foundIndex array with the indices of the found contacts.
+*/
+
 char* convertToLower(const char *str,char *lowerStr){
     for(int i=0;str[i]!=0;i++){
         lowerStr[i]=tolower(str[i]);
@@ -232,6 +305,21 @@ char* convertToLower(const char *str,char *lowerStr){
 }
 
 int SearchContactsByName(AddressBook *addressBook, char *name, int flag, int foundIndex[]){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    char *name: The name to search for in the contact details.
+    int flag: A flag indicating whether to print the search results (0) or just return the number of contacts found (1).
+    int foundIndex[]: An array to store the indices of the found contacts.
+
+    return value:
+    The function returns the number of contacts found that match the search criteria.
+
+    Output:
+    The function searches for contacts in the AddressBook structure based on the provided name.
+    If flag is 0, it prints the search results. If flag is 1, it returns the number of contacts found and populates the foundIndex array with the indices of the found contacts.
+    */
+
     sortContactsByName(addressBook);
     char temp1[50];
     char temp2[50];
@@ -272,10 +360,22 @@ int SearchContactsByName(AddressBook *addressBook, char *name, int flag, int fou
     return k;
 }
 
-
-
-
 int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag,int foundIndex[]){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    char *phone: The phone number to search for in the contact details.
+    int flag: A flag indicating whether to print the search results (0) or just return the number of contacts found (1).
+    int foundIndex[]: An array to store the indices of the found contacts.
+
+    return value:
+    The function returns the number of contacts found that match the search criteria.
+
+    Output:
+    The function searches for contacts in the AddressBook structure based on the provided phone number.
+    If flag is 0, it prints the search results. If flag is 1, it returns the number of contacts found and populates the foundIndex array with the indices of the found contacts.
+    */
+
     sortContactsByPhone(addressBook);
     int k=0,f=0;
     if(flag==0){
@@ -317,6 +417,21 @@ int SearchContactsByPhone(AddressBook *addressBook, char *phone, int flag,int fo
 }
 
 int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag,int foundIndex[]){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    char *email: The email to search for in the contact details.
+    int flag: A flag indicating whether to print the search results (0) or just return the number of contacts found (1).
+    int foundIndex[]: An array to store the indices of the found contacts.
+
+    return value:
+    The function returns the number of contacts found that match the search criteria.
+
+    Output:
+    The function searches for contacts in the AddressBook structure based on the provided email.
+    If flag is 0, it prints the search results. If flag is 1, it returns the number of contacts found and populates the foundIndex array with the indices of the found contacts.
+    */
+
     sortContactsByEmail(addressBook);
     char temp1[50];
     char temp2[50];
@@ -360,7 +475,19 @@ int SearchContactsByEmail(AddressBook *addressBook, char *email,int flag,int fou
 
 
 
+/*
+Section 4 - Functions to delete the contact details.
+*/
+
 void deleteContactByIndex(AddressBook *addressBook, int index){
+    /*
+    Input parameters:
+    AddressBook *addressBook: Pointer to the AddressBook structure that contains the contacts.
+    int index: The index of the contact to be deleted.
+
+    Output:
+    The function deletes the contact at the specified index from the AddressBook structure.
+    */
     int choice;
     printf("Are you sure you want to delete the contact: %s? (1 for Yes, 0 for No): ", addressBook->contacts[index].name);
     scanf("%d", &choice);
