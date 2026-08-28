@@ -19,6 +19,7 @@ int main() {
         printf("Enter your choice: ");
         scanf("%d", &choice);
         //getchar();
+        printf("________________________________________________________________________________________________\n");
         __fpurge(stdin);
         
         switch (choice) {
