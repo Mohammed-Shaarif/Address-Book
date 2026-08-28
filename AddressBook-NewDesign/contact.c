@@ -68,6 +68,7 @@ void initialize(AddressBook *addressBook){
     // Load contacts from file during initialization (After files)
     loadContactsFromFile(addressBook);
     printf("Address Book initialized with %d contacts.\n", addressBook->contactCount);
+    printf("________________________________________________________________________________________________\n\n");
 }
 
 void saveAndExit(AddressBook *addressBook){
@@ -89,8 +90,9 @@ void saveAndExit(AddressBook *addressBook){
     }
     else{
         printf("\nExiting without saving...\n");
+        printf("________________________________________________________________________________________________\n");
     }
-    printf("________________________________________________________________________________________________\n");
+
     exit(EXIT_SUCCESS); // Exit the program
 }
 
