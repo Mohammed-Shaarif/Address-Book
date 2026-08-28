@@ -38,10 +38,11 @@ int main() {
                 listContacts(&addressBook);
                 break;
             case 6:
-                printf("Saving...\n");
+                printf("\nSaving...\n");
                 saveContactsToFile(&addressBook);
                 break;   
             case 7:
+                saveAndExit(&addressBook);
                 printf("Exiting...\n");
                 break;
             default:

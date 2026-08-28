@@ -17,6 +17,7 @@ void saveContactsToFile(AddressBook *addressBook){
 
     fclose(fp);
     printf("Contacts saved to file successfully.\n");
+    printf("")
   
 }
 
@@ -27,13 +28,12 @@ void loadContactsFromFile(AddressBook *addressBook) {
     fp=fopen("contacts.csv","r");
 
     if(fp == NULL){
-        printf("Error opening file");
+        printf("\nError opening file");
         return;
     }
     fscanf(fp, "%d\n", &addressBook->contactCount);
-    fgetc(fp);
-    printf("Loading %d contacts from file...\n", addressBook->contactCount);
-    printf("____________________________________________________________________________________________________\n");
+    printf("\nLoading %d contacts from file...\n", addressBook->contactCount);
+    printf("____________________________________________________________________________________________________\n\n");
     //printf("Saved Contacts: \n");
     for (int i = 0; i < addressBook->contactCount; i++) {
         fgets(buffer, sizeof(buffer), fp);
