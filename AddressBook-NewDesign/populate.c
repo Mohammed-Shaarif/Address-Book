@@ -116,7 +116,7 @@ void populateEmail(AddressBook *addressBook,int f){
         if(strcmp(template1,input+n-4)){
             flag=5;
         }
-        if(input[0]=='@'){
+        if(input[0]=='@' || !isalnum(input[0])){
             flag=4;
         }
         for(int i=0;i<n;i++){
